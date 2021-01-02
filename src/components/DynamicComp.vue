@@ -13,7 +13,8 @@
           State:
         </h1>
         <p>{{ current.value }}</p>
-        <p>context: {{ context.stateValue }}</p>
+        <p>Look how the context value goes wrong: {{ context.stateValue }}</p>
+        <p>(No context value before clicking on any button)</p>
       </div>
       <component :is="currentComponent"></component>
     </div>
@@ -72,6 +73,8 @@ export default {
     }
   }
 };
+
+//this method should not be exposed
 const extractStateValue = function(str) {
   return str.split("_")[1];
 };
