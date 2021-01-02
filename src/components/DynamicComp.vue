@@ -8,12 +8,7 @@
     </button>
 
     <div class="page-container">
-      <div>
-        <h1>
-          State:
-        </h1>
-        <p>{{ current.value }}</p>
-      </div>
+      <component v-bind:is="currentComponent"></component>
     </div>
   </div>
 </template>
@@ -21,7 +16,14 @@
 <script>
 import { interpret } from "xstate";
 import { sequentialMachine } from "@/state_machines/sequentialMachine.js";
+import c1 from "@/components/c1.vue";
+import c2 from "@/components/c2.vue";
+import c3 from "@/components/c3.vue";
+import c4 from "@/components/c4.vue";
+
 export default {
+  name: "DynamicComp",
+  components: { c1, c2, c3, c4 },
   created() {
     // Start service on component creation
     this.sequentialService
@@ -30,6 +32,7 @@ export default {
         this.current = state;
         // Update the context component data property with the updated context
         this.context = state.context;
+        console.log(this.context.n);
       })
       .start();
   },
@@ -51,6 +54,11 @@ export default {
     send(event) {
       this.sequentialService.send(event);
     }
+  },
+  computed: {
+    currentComponent: function() {
+      return `c${this.context.n}`;
+    }
   }
 };
 </script>
@@ -62,6 +70,6 @@ export default {
   align-items: center;
   height: 500px;
   margin: 50px;
-  background-color: yellowgreen;
+  background-color: orangered;
 }
 </style>

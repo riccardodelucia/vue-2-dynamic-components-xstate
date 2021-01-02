@@ -5,6 +5,7 @@ export const sequentialMachine = Machine({
   id: "sequential",
   context: {
     /* some data */
+    n: 1
   },
   initial: "one",
   states: {

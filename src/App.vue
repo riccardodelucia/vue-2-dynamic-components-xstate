@@ -2,7 +2,8 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/static">Numbered States</router-link>
+      <router-link to="/static">Static Component</router-link> |
+      <router-link to="/dynamic">Dynamic Component</router-link>
     </div>
     <router-view />
   </div>
