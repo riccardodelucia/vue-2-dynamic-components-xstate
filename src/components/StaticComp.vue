@@ -2,13 +2,24 @@
   <div>
     <button>Test</button>
     <div class="page-container">
-      <h1 class="text">Test</h1>
+      <div>
+        <h1>
+          State:
+        </h1>
+        <p>{{ text }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      text: "test-text"
+    };
+  }
+};
 </script>
 
 <style>
