@@ -8,6 +8,12 @@
     </button>
 
     <div class="page-container">
+      <div>
+        <h1>
+          State:
+        </h1>
+        <p>{{ current.value }}</p>
+      </div>
       <component v-bind:is="currentComponent"></component>
     </div>
   </div>
@@ -32,7 +38,6 @@ export default {
         this.current = state;
         // Update the context component data property with the updated context
         this.context = state.context;
-        console.log(this.context.n);
       })
       .start();
   },
@@ -66,6 +71,7 @@ export default {
 <style scoped>
 .page-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 500px;
