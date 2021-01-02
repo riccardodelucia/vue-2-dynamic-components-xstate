@@ -35,7 +35,6 @@ export default {
   },
   data() {
     return {
-      text: "test-text",
       // Interpret the machine and store it in data
       sequentialService: interpret(sequentialMachine),
 

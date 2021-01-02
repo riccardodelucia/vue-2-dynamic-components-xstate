@@ -14,7 +14,7 @@
         </h1>
         <p>{{ current.value }}</p>
       </div>
-      <component v-bind:is="currentComponent"></component>
+      <component :is="currentComponent"></component>
     </div>
   </div>
 </template>
