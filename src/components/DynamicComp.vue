@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button v-show="current.value !== 'one'" v-on:click="send('PREV')">
+    <button v-show="current.value !== 'state_1'" v-on:click="send('PREV')">
       Prev
     </button>
-    <button v-show="current.value !== 'four'" v-on:click="send('NEXT')">
+    <button v-show="current.value !== 'state_4'" v-on:click="send('NEXT')">
       Next
     </button>
 
@@ -13,6 +13,7 @@
           State:
         </h1>
         <p>{{ current.value }}</p>
+        <p>context: {{ context.stateValue }}</p>
       </div>
       <component :is="currentComponent"></component>
     </div>
@@ -43,7 +44,6 @@ export default {
   },
   data() {
     return {
-      text: "test-text",
       // Interpret the machine and store it in data
       sequentialService: interpret(sequentialMachine),
 
@@ -57,14 +57,23 @@ export default {
   methods: {
     // Send events to the service
     send(event) {
-      this.sequentialService.send(event);
+      this.sequentialService.send({
+        type: event,
+        //just to show how to pass data to the state machine
+        // and to show how to use context for updating the component is a bad idea :)
+        value: extractStateValue(this.current.value)
+      });
     }
   },
   computed: {
     currentComponent: function() {
-      return `c${this.context.n}`;
+      extractStateValue(this.current.value);
+      return `c${extractStateValue(this.current.value)}`;
     }
   }
+};
+const extractStateValue = function(str) {
+  return str.split("_")[1];
 };
 </script>
 

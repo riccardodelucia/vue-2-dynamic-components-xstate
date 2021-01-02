@@ -1,9 +1,9 @@
 <template>
   <div>
-    <button v-show="current.value !== 'one'" v-on:click="send('PREV')">
+    <button v-show="current.value !== 'state_1'" v-on:click="send('PREV')">
       Prev
     </button>
-    <button v-show="current.value !== 'four'" v-on:click="send('NEXT')">
+    <button v-show="current.value !== 'state_4'" v-on:click="send('NEXT')">
       Next
     </button>
 

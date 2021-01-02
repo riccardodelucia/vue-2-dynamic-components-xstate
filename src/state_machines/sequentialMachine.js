@@ -1,4 +1,4 @@
-import { Machine } from "xstate";
+import { Machine, assign } from "xstate";
 
 // This machine is completely decoupled from Vue
 export const sequentialMachine = Machine(
@@ -6,60 +6,62 @@ export const sequentialMachine = Machine(
     id: "sequential",
     context: {
       /* some data */
-      n: 1
+      stateValue: 1
     },
-    initial: "one",
+    initial: "state_1",
     states: {
-      one: {
-        on: { NEXT: { target: "two", actions: ["incStateID"] } }
+      state_1: {
+        entry: ["changeStateLog", "updateContextValue"],
+        on: {
+          NEXT: { target: "state_2", actions: ["logNext"] }
+        }
       },
-      two: {
+      state_2: {
+        entry: ["changeStateLog", "updateContextValue"],
         on: {
           NEXT: {
-            target: "three",
-            // transition actions
-            actions: ["incStateID"]
+            target: "state_3",
+            actions: ["logNext"]
           },
           PREV: {
-            target: "one",
-            // transition actions
-            actions: ["decStateID"]
+            target: "state_1",
+            actions: ["logPrev"]
           }
         }
       },
-      three: {
+      state_3: {
+        entry: ["changeStateLog", "updateContextValue"],
         on: {
           NEXT: {
-            target: "four",
-            // transition actions
-            actions: ["incStateID"]
+            target: "state_4",
+            actions: ["logNext"]
           },
           PREV: {
-            target: "two",
-            // transition actions
-            actions: ["decStateID"]
+            target: "state_2",
+            actions: ["logPrev"]
           }
         }
       },
-      four: {
-        on: { PREV: { target: "three", actions: ["decStateID"] } }
+      state_4: {
+        entry: ["changeStateLog", "updateContextValue"],
+        on: { PREV: { target: "state_3", actions: ["logPrev"] } }
       }
     }
   },
   {
     actions: {
-      // action implementations
-      incStateID: (context, event) => {
-        console.log(
-          `Performing FSM incStateID on context.n=${context.n} on event=${event}`
-        );
-        context.n++;
+      // just to show how to pass data through events
+      updateContextValue: assign((context, event) => ({
+        stateValue: event.value
+      })),
+      changeStateLog() {
+        console.log("transition called");
       },
-      decStateID: (context, event) => {
-        console.log(
-          `Performing FSM decStateID on context.n=${context.n} on event=${event}`
-        );
-        context.n--;
+      logNext: () => {
+        console.log("next event");
+      },
+      logPrev: () => {
+        console.log("prev event");
       }
     }
   }
