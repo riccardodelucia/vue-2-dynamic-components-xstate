@@ -9,16 +9,16 @@ export const sequentialMachine = Machine({
   initial: "one",
   states: {
     one: {
-      on: { TOGGLE: "two" }
+      on: { NEXT: "two" }
     },
     two: {
-      on: { TOGGLE: "three" }
+      on: { NEXT: "three", PREV: "one" }
     },
     three: {
-      on: { TOGGLE: "four" }
+      on: { NEXT: "four", PREV: "two" }
     },
     four: {
-      on: { TOGGLE: "one" }
+      on: { PREV: "three" }
     }
   }
 });
