@@ -1,4 +1,7 @@
-# dynamic_gui_with_xstate
+# Vue 2 Dynamic GUI with XState
+
+This project is used to test how to manage the component rendering through a state machine, implemented with the **XState** library. 
+The state machine is controlled by component's buttons, which send events to the machine, thus evolving the state. The state, in turns, is used to understand which component to render.
 
 ## Project setup
 ```
@@ -20,5 +23,3 @@ npm run build
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
